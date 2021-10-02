@@ -3,6 +3,7 @@
 #######################################################################################
 
 should_patch="y" # say n if doesn't want remove mime references
+PREFIX="$HOME/.local"
 
 major=2.1
 minor=48
@@ -33,7 +34,7 @@ install_()
 
     cd "$src_dir"
 
-    export PREFIX="$HOME/.local"
+    export $PREFIX
 
     BIN_DIR="$PREFIX/bin"
 
@@ -56,14 +57,15 @@ install_()
 uninstall_()
 {
     cd "$src_dir/$pkg_name"
-    PREFIX="$HOME/.local" ./uninstall.sh
+
+    export $PREFIX
+
+    ./uninstall.sh
 }
 
-uninstall_
-
-#case "$1" in
-#    ""            ) install_;;
-#    "--install"   ) install_;;
-#    "--uninstall" ) uninstall_;;
-#    *             ) echo "--install to install it.\n--uninstall to remove it."
-#esac
+case "$1" in
+    ""            ) install_;;
+    "--install"   ) install_;;
+    "--uninstall" ) uninstall_;;
+    *             ) echo "--install to install it.\n--uninstall to remove it."
+esac

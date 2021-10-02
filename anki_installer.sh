@@ -34,7 +34,7 @@ install_()
 
     cd "$src_dir"
 
-    export $PREFIX
+    export PREFIX=$PREFIX
 
     BIN_DIR="$PREFIX/bin"
 
@@ -58,7 +58,7 @@ uninstall_()
 {
     cd "$src_dir/$pkg_name"
 
-    export $PREFIX
+    export PREFIX=$PREFIX
 
     ./uninstall.sh
 }

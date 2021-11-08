@@ -6,7 +6,7 @@ should_patch="y" # say n if doesn't want remove mime references
 PREFIX="$HOME/.local"
 
 major=2.1
-minor=48
+minor=49
 ver=$major.$minor
 url="https://github.com/ankitects/anki/releases/download/$ver/anki-$ver-linux.tar.bz2"
 pkg_name="anki-$ver-linux"

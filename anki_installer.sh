@@ -6,7 +6,7 @@ remove_mime_references="y" # say y here if you want to remove mime references
 PREFIX="$HOME/.local/opt/Anki"
 
 major=24
-minor=06.3
+minor=11
 ver=${major}.${minor}
 pkg_name="anki-${ver}-linux-qt5"
 url="https://github.com/ankitects/anki/releases/download/${ver}/${pkg_name}.tar.zst"

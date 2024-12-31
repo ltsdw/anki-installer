@@ -2,14 +2,14 @@
 
 #######################################################################################
 
-should_patch="y" # say n if doesn't want remove mime references
-PREFIX="$HOME/.local"
+remove_mime_references="y" # say y here if you want to remove mime references
+PREFIX="$HOME/.local/opt/Anki"
 
-major=2.1
-minor=49
-ver=$major.$minor
-url="https://github.com/ankitects/anki/releases/download/$ver/anki-$ver-linux.tar.bz2"
-pkg_name="anki-$ver-linux"
+major=24
+minor=06.3
+ver=${major}.${minor}
+pkg_name="anki-${ver}-linux-qt5"
+url="https://github.com/ankitects/anki/releases/download/${ver}/${pkg_name}.tar.zst"
 pkg_dir="$(pwd)"
 src_dir="$pkg_dir/src"
 
@@ -17,37 +17,37 @@ src_dir="$pkg_dir/src"
 
 download()
 {
-    pkg_tar="$pkg_name.tar.bz2"
+    pkg_tar="${pkg_name}.tar.zst"
 
-    ! [ -f "$pkg_tar" ] && curl -L $url -o $pkg_tar
+    ! [ -f "${pkg_tar}" ] && curl -L ${url} -o ${pkg_tar}
 
-    rm -rf "$src_dir/$pkg_name"
+    rm -rf "${src_dir}/${pkg_name}"
 
-    ! [ -d "$src_dir" ] && mkdir "$src_dir"
+    ! [ -d "${src_dir}" ] && mkdir "${src_dir}"
 
-    tar xvf $pkg_tar -C "$src_dir"
+    tar xvf ${pkg_tar} -C "${src_dir}"
 }
 
 install_()
 {
     download
 
-    cd "$src_dir"
+    cd "${src_dir}"
 
-    export PREFIX=$PREFIX
+    export PREFIX="${PREFIX}"
 
-    BIN_DIR="$PREFIX/bin"
+    ! [ -d "${PREFIX}" ] && mkdir -p "${PREFIX}"
 
-    ! [ -d "$PREFIX/opt" ] && mkdir -p "$PREFIX/opt"
+    BIN_DIR="${PREFIX}/bin"
 
-    [ "$should_patch" = "y" ] && patch -d "$pkg_name" -p1 -i "$pkg_dir/remove-mime-references.patch"
+    [ "${remove_mime_references}" = "y" ] && patch -d "${pkg_name}" -p1 -i "${pkg_dir}/remove-mime-references.patch"
 
-    cd "$pkg_name"
+    cd "${pkg_name}"
 
     ./install.sh
 
-    if [ -L "$BIN_DIR/anki" ]; then 
-        echo "Anki was installed at $BIN_DIR/anki."
+    if [ -L "${BIN_DIR}/anki" ]; then
+        echo "Anki was installed at ${BIN_DIR}/anki."
         echo "Remember to add \"export PATH=\$PATH:$BIN_DIR\" to your .bashrc, .xinitrc or whataever other you use."
     else
         echo "Anki was not installed."
@@ -56,15 +56,14 @@ install_()
 
 uninstall_()
 {
-    cd "$src_dir/$pkg_name"
+    cd "${src_dir}/${pkg_name}"
 
-    export PREFIX=$PREFIX
+    export PREFIX=${PREFIX}
 
     ./uninstall.sh
 }
 
 case "$1" in
-    ""            ) install_;;
     "--install"   ) install_;;
     "--uninstall" ) uninstall_;;
     *             ) echo "--install to install it.\n--uninstall to remove it."

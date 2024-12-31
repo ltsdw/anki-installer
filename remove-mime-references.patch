@@ -1,27 +1,27 @@
-diff --git a/install.sh b/install.sh
-index 5389c92..35e5e45 100755
---- a/install.sh
-+++ b/install.sh
-@@ -26,9 +26,4 @@ mv anki.xpm anki.png ${PREFIX}/share/pixmaps/;\
- mv anki.desktop ${PREFIX}/share/applications/;\
- mv anki.1 ${PREFIX}/share/man/man1/)
+diff -ur a/install.sh b/install.sh
+--- a/install.sh	2024-12-30 20:05:25.530214796 -0300
++++ b/install.sh	2024-12-30 20:05:42.153548347 -0300
+@@ -26,11 +26,6 @@
+ mv -Z anki.desktop "$PREFIX"/share/applications/;\
+ mv -Z anki.1 "$PREFIX"/share/man/man1/)
  
 -xdg-mime install anki.xml --novendor
 -xdg-mime default anki.desktop application/x-colpkg
 -xdg-mime default anki.desktop application/x-apkg
 -xdg-mime default anki.desktop application/x-ankiaddon
 -
+ rm install.sh
+ 
  echo "Install complete. Type 'anki' to run."
-diff --git a/uninstall.sh b/uninstall.sh
-index 77b71db..8dbbe22 100755
---- a/uninstall.sh
-+++ b/uninstall.sh
-@@ -6,8 +6,6 @@ if [ "$PREFIX" = "" ]; then
+diff -ur a/uninstall.sh b/uninstall.sh
+--- a/uninstall.sh	2024-12-30 20:05:29.583548182 -0300
++++ b/uninstall.sh	2024-12-30 20:05:59.103548574 -0300
+@@ -6,8 +6,6 @@
  	PREFIX=/usr/local
  fi
  
--xdg-mime uninstall ${PREFIX}/share/anki/anki.xml || true
+-xdg-mime uninstall "$PREFIX"/share/anki/anki.xml || true
 -
- rm -rf ${PREFIX}/share/anki
- rm -rf ${PREFIX}/bin/anki
- rm -rf ${PREFIX}/share/pixmaps/anki.xpm
+ rm -rf "$PREFIX"/share/anki
+ rm -rf "$PREFIX"/bin/anki
+ rm -rf "$PREFIX"/share/pixmaps/anki.xpm

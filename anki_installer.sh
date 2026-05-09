@@ -3,12 +3,12 @@
 #######################################################################################
 
 remove_mime_references="y" # say y here if you want to remove mime references
-PREFIX="$HOME/.local/opt/Anki"
+PREFIX="$HOME/.local/opt"
 
-major=24
-minor=11
+major=25
+minor=09
 ver=${major}.${minor}
-pkg_name="anki-${ver}-linux-qt5"
+pkg_name="anki-launcher-${ver}-linux"
 url="https://github.com/ankitects/anki/releases/download/${ver}/${pkg_name}.tar.zst"
 pkg_dir="$(pwd)"
 src_dir="$pkg_dir/src"
@@ -34,7 +34,7 @@ install_()
 
     cd "${src_dir}"
 
-    export PREFIX="${PREFIX}"
+    export PREFIX="${PREFIX}/Anki"
 
     ! [ -d "${PREFIX}" ] && mkdir -p "${PREFIX}"
 
@@ -58,7 +58,7 @@ uninstall_()
 {
     cd "${src_dir}/${pkg_name}"
 
-    export PREFIX=${PREFIX}
+    export PREFIX="${PREFIX}/Anki"
 
     ./uninstall.sh
 }
